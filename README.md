@@ -12,6 +12,17 @@ Goals:
 
 See the [poster](https://github.com/rdsea/EdgeCorneringAssistance/blob/master/thesis-poster.pdf) for more information about the thesis.
 
+## Demo Videos
+
+The following videos demonstrate the prototype application:
+
+[Simulation-Demo](https://youtu.be/VNNTYC3l3pU)
+
+[Real-World-Demo](https://youtu.be/SBRD8GrFyZoO)
+
+## Run the Demo
+See [Demo - README](https://github.com/rdsea/EdgeCorneringAssistance/blob/master/docker/demo/README.md) to run the demo yourself.
+
 ## Prototype Structure
 The software components of the thesis' prototype are split up into the following directories:
 
@@ -26,17 +37,6 @@ The software components of the thesis' prototype are split up into the following
 *recommendation*: Source code for the recommendation service.
 
 *simulator*: Java applications that simulate client/car functionalities.
-
-## Demo Videos
-
-The following videos demonstrate the prototype application:
-
-[Simulation-Demo](https://youtu.be/VNNTYC3l3pU)
-
-[Real-World-Demo](https://youtu.be/SBRD8GrFyZoO)
-
-## Run the Demo
-See [Demo - README](https://github.com/rdsea/EdgeCorneringAssistance/blob/master/docker/demo/README.md) to run the demo yourself.
 
 
 
