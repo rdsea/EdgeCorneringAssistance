@@ -86,5 +86,5 @@ cd simulator/test-data-quality/
 cd android/CorneringAssistanceApplication
 ./gradlew installDebug
 ```
-To configure the Android Prototype correctly please have a look at [Android App README](https://github.com/rdsea/EdgeCorneringAssistance/blob/master/android/CorneringAssistanceApplication/README.md)`android/CorneringAssistanceApplication/README.md`.
+To configure the Android Prototype correctly please have a look at [Android App README](https://github.com/rdsea/EdgeCorneringAssistance/blob/master/android/CorneringAssistanceApplication/README.md).
 The README also describes how you can use GPX files to simulate a driver using the Emulator.
