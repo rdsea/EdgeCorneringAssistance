@@ -10,7 +10,7 @@ Goals:
 * recommend safe speeds to enter a curve
 * use novel edge- and cloud-computing architectures and algorithms
 
-See the [poster](https://TODO) for more information about the thesis.
+See the [poster](https://github.com/rdsea/EdgeCorneringAssistance/blob/master/thesis-poster.pdf) for more information about the thesis.
 
 ## Prototype Structure
 The software components of the thesis' prototype are split up into the following directories:
@@ -31,12 +31,12 @@ The software components of the thesis' prototype are split up into the following
 
 The following videos demonstrate the prototype application:
 
-[Demo-Simuliation-Application](http://TODO)
+[Demo-Simuliation-Application](http://TODO) TODO
 
-[Demo-Real-World](http://TODO)
+[Demo-Real-World](http://TODO) TODO
 
 ## Run the Demo
-See [Run The Demo - README](http://TODO) to run the demo yourself.
+See [Run The Demo - README](https://github.com/rdsea/EdgeCorneringAssistance/blob/master/docker/demo/README.md) to run the demo yourself.
 
 
 
