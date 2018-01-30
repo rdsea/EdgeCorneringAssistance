@@ -31,12 +31,12 @@ The software components of the thesis' prototype are split up into the following
 
 The following videos demonstrate the prototype application:
 
-[Demo-Simuliation-Application](http://TODO) TODO
+[Simulation-Demo](https://youtu.be/VNNTYC3l3pU)
 
-[Demo-Real-World](http://TODO) TODO
+[Real-World-Demo](https://youtu.be/SBRD8GrFyZoO)
 
 ## Run the Demo
-See [Run The Demo - README](https://github.com/rdsea/EdgeCorneringAssistance/blob/master/docker/demo/README.md) to run the demo yourself.
+See [Demo - README](https://github.com/rdsea/EdgeCorneringAssistance/blob/master/docker/demo/README.md) to run the demo yourself.
 
 
 
