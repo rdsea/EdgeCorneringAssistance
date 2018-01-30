@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+
+option java_multiple_files = true;
+// specifies the package we want to use for our generated Java classes.
+option java_package = "com.k.matthias.corneringassistanceapplication.grpc";
+option java_outer_classname = "RecommendationProto";
+
+
+package recommendation;
+
+import "common.proto";
+
+service Recommendation {
+    rpc requestRecommendation(common.RequestDTO) returns (common.ResponseDTO) {}
+    rpc pollDatabase(common.RequestDTO) returns (common.ResponseDTO) {}
+}

@@ -1,0 +1,17 @@
+version: "3.3"
+
+networks:
+  swarmnet:
+      external:
+        name: swarmnet
+
+services:
+  fleet:
+      deploy:
+        placement:
+          constraints: [node.hostname == external]
+      networks:
+        swarmnet:
+      image: "thesis:sim-performance"
+      ports:
+        - "8080:8080" # HTTP

@@ -1,0 +1,55 @@
+version: "3.3"
+
+volumes:
+  redis-data:
+  mongo-data:
+
+networks:
+  internal:
+  swarmnet:
+      external:
+        name: swarmnet
+
+configs:
+  rec-config:
+    file: ./config.properties
+
+services:
+
+  grpc-server-1:
+    deploy:
+          placement:
+              constraints: [node.hostname == rec]
+    image: thesis:rec-server
+    configs:
+          - source: rec-config
+            target: /recommendation/config.properties
+    ports:
+      - "50051:50051"
+    networks:
+      internal:
+      swarmnet:
+
+  # REDIS: Used by the recommendation service for caching weather data
+  redis:
+      deploy:
+            placement:
+                constraints: [node.hostname == rec]
+      image: redis
+      networks:
+        internal:
+      volumes:
+        - redis-data:/redis-data
+
+  # MONGO: Used by the recommendation service for caching curves locally
+  mongo:
+      deploy:
+            placement:
+                constraints: [node.hostname == rec]
+      image: mongo
+      ports:
+        - "27117:27017"
+      networks:
+        internal:
+      volumes:
+        - mongo-data:/mongo-data

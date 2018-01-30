@@ -1,0 +1,119 @@
+version: "3.3"
+
+volumes:
+  redis-data:
+  mongo-data:
+
+networks:
+  internal:
+  swarmnet:
+      external:
+        name: swarmnet
+
+configs:
+  rec-config-X:
+    file: ./config.properties
+  prom-config:
+    file: ./prometheus/prometheus.yml
+
+services:
+
+  grpc-server-X:
+    deploy:
+          placement:
+              constraints: [node.hostname == rec-X]
+    image: thesis/rec-server
+    configs:
+          - source: rec-config-X
+            target: /recommendation/config.properties
+    networks:
+      internal:
+      swarmnet:
+
+
+  # REDIS: Used by the recommendation service for caching weather data
+  redis-X:
+      deploy:
+            placement:
+                constraints: [node.hostname == rec-X]
+      image: redis
+      networks:
+        internal:
+      volumes:
+        - redis-data:/redis-data
+
+  # MONGO: Used by the recommendation service for caching curves locally
+  mongo-X:
+      deploy:
+            placement:
+                constraints: [node.hostname == rec-X]
+      image: mongo
+      networks:
+        internal:
+      volumes:
+        - mongo-data:/mongo-data
+
+
+  # NODE-Exporter: provides metrics about this Node
+  node-exporter-X:
+      deploy:
+            placement:
+                constraints: [node.hostname == rec-X]
+      image: prom/node-exporter
+      networks:
+        swarmnet:
+
+  consul-client-X:
+      deploy:
+            placement:
+                constraints: [node.hostname == rec-X]
+      image: "consul:latest"
+      networks:
+        swarmnet:
+      environment:
+        - CONSUL_BIND_INTERFACE=eth0
+        - CONSUL_CLIENT_INTERFACE=eth0
+        - CONSUL_LOCAL_CONFIG={
+                                "services":[
+                                  {
+                                    "id":"node-exporter-X",
+                                    "name":"node-exporter",
+                                    "tags":["recommendation"],
+                                    "address":"node-exporter-X",
+                                    "port":9100
+                                  },
+                                  {
+                                    "id":"rec-X",
+                                    "name":"recommendation",
+                                    "address":"grpc-server-X",
+                                    "port":50051
+                                  }
+                                ]}
+        # Consul Config:
+        #                 -ID:    unique ID of the service on this node
+        #                 -Name:  the name of the service (not unique)
+        #                 -Tags:  specifies service capabilities of this node (i.e. what types of requests can be handled). Example: "detection", "recommendation"
+      command:
+        - consul
+        - agent
+        - -node=consul-client-X # The name of this node in the cluster.
+        - -node-meta=lat:!LAT! # obsolete if deployed to cloud
+        - -node-meta=lon:!LON! # obsolete if deployed to cloud
+        - -data-dir=/consul/data # mounted volume
+        - -config-dir=/consul/config
+        - -join=consul-server
+        - -bind={{ GetInterfaceIP "eth0" }} # The address at which other Consul agents can find this agent
+
+  # Prometheus: Collects metrics from targets (provided by Consul) of this node
+  prometheus-X:
+        deploy:
+              placement:
+                  constraints: [node.hostname == rec-X]
+        image: prom/prometheus
+        configs:
+          - source: prom-config
+            target: /etc/prometheus/prometheus.yml
+        command:
+          - --config.file=/etc/prometheus/prometheus.yml
+        networks:
+          swarmnet:

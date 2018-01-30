@@ -1,0 +1,26 @@
+version: "3.3"
+
+volumes:
+  mongo-data:
+
+networks:
+  swarmnet:
+      external:
+        name: swarmnet
+
+services:
+# MONGO: Distributed curve cache, used by rec (read-only) and det (write-only)
+  db:
+      deploy:
+            placement:
+                constraints: [node.hostname == db]
+      image: mongo
+      environment:
+        - MONGO_INITDB_ROOT_USERNAME=<USERNAME>
+        - MONGO_INITDB_ROOT_PASSWORD=<PW>
+      ports:
+        - "27017:27017"
+      networks:
+        swarmnet:
+      volumes:
+        - mongo-data:/mongo-data

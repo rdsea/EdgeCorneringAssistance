@@ -1,0 +1,36 @@
+global:
+    scrape_interval: 1m
+     scrape_timeout: 10s 
+    evaluation_interval: 1m
+    external_labels:
+        monitor: 'recommendation-monitor'
+  rule_files:
+      - '/etc/prometheus/alert.rules'
+scrape_configs:
+  - job_name: 'prometheus'
+
+  - job_name: 'node'
+
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 5s
+
+    consul_sd_configs:
+      - server:   'consul-server:8500'
+        services: ['node-exporter']
+        tag_separator:
+
+    relabel_configs:
+      - source_labels: [__meta_consul_service]
+        target_label: service_name
+      - source_labels: [__meta_consul_service_id]
+        target_label: service_id
+      - source_labels: [__meta_consul_service_address]
+        target_label: service_address
+      - source_labels: [__meta_consul_service_port]
+        target_label: service_port
+      - source_labels: [__meta_consul_node]
+        target_label: node_name
+      - source_labels: [__meta_consul_address]
+        target_label: node_address
+      - source_labels: [__meta_consul_tags]
+        target_label: node_capabilities

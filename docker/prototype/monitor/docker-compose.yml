@@ -1,0 +1,41 @@
+version: "3.3"
+
+networks:
+  swarmnet:
+      external:
+        name: swarmnet
+
+configs:
+  prom-config-monitor:
+    file: ./prometheus/prometheus.yml
+
+services:
+
+  # Prometheus Server: Collects metrics from simulation targets
+  prometheus-monitor:
+      image: prom/prometheus
+      networks:
+        swarmnet:
+      deploy:
+        placement:
+          constraints: [node.hostname == external]
+      ports:
+        - "9090:9090"
+      configs:
+        - source: prom-config-monitor
+          target: /etc/prometheus/prometheus.yml
+      command:
+        - '--config.file=/etc/prometheus/prometheus.yml'
+
+  # Grafana: Create dashboard with metrics provided from prometheus
+  grafana-monitor:
+      image: grafana/grafana
+      networks:
+        swarmnet: 
+      deploy:
+        placement:
+          constraints: [node.hostname == external]
+      ports:
+        - "3000:3000"
+
+

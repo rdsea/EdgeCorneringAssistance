@@ -1,0 +1,41 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="call_server"
+        android:summary="@string/pref_description_call_server"
+        android:title="@string/pref_title_call_server" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="clear_cache"
+        android:summary="@string/pref_description_always_clear_cache"
+        android:title="@string/pref_title_always_clear_cache" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="auto_move_map"
+        android:summary="@string/pref_description_auto_move_map"
+        android:title="@string/pref_title_auto_move_map" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="hide_passed_curves"
+        android:summary="@string/pref_description_hide_passed_curves"
+        android:title="@string/pref_title_hide_passed_curves" />
+
+
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <!--<EditTextPreference
+        android:capitalize="words"
+        android:defaultValue="@string/pref_default_server_address"
+        android:inputType="textCapWords"
+        android:key="example_text"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_title_server_address" />-->
+
+</PreferenceScreen>

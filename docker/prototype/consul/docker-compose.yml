@@ -1,0 +1,32 @@
+version: "3.3"
+
+networks:
+  swarmnet:
+      external:
+        name: swarmnet
+
+services:
+
+  consul-server:
+      deploy:
+        placement:
+          constraints: [node.hostname == consul]
+      networks:
+        swarmnet:
+      image: "consul:latest"
+      hostname: "consul-server"
+      ports:
+        - "8500:8500" # HTTP
+      environment:
+          CONSUL_BIND_INTERFACE: eth2
+          CONSUL_CLIENT_INTERFACE: eth2
+      command:
+      - consul
+      - agent
+      - -server
+      - -bootstrap-expect=1
+      - -data-dir=/consul/data # mounted volume
+      - -node=consul-server
+      - -bind={{ GetInterfaceIP "eth2" }} # The address at which other Consul agents can find this agent
+      - -client=0.0.0.0 # The address where other processes on the host contact Consul in order to make HTTP or DNS requests
+      - -ui

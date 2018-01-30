@@ -1,0 +1,57 @@
+group 'at.mkaran.thesis'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext {
+        springBootVersion = '1.5.8.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+
+repositories {
+    mavenCentral()
+}
+
+def grpcVersion = '1.5.0' // CURRENT_GRPC_VERSION
+
+
+dependencies {
+    // Java App (to do the simulation)
+    compile 'org.apache.commons:commons-csv:1.4'
+    compile 'org.apache.commons:commons-io:1.3.2'
+    compile 'ch.hsr:geohash:1.3.0'
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    compile fileTree(dir: '../../commons/build/libs', include: '*.jar')
+    compile "io.grpc:grpc-stub:${grpcVersion}"
+    compile "io.grpc:grpc-netty:${grpcVersion}"
+
+    // Webserver (to export metrics to prometheus)
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-devtools")
+    compile 'io.prometheus:simpleclient_common:0.1.0'
+
+    // Camel + RabbitMQ + Websocket to visualize whats going on on test-track
+    compile('org.apache.camel:camel-spring-boot-starter:2.20.0')
+    compile("org.apache.camel:camel-stream-starter:2.20.0")
+    compile("org.apache.camel:camel-websocket-starter:2.20.0")
+    compile("org.apache.camel:camel-rabbitmq-starter:2.20.0")
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+springBoot {
+    mainClass = "webserver.WebApplication"
+}
+
+bootRun {
+    addResources = true
+}

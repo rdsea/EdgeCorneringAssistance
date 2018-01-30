@@ -1,0 +1,84 @@
+<div class="col-md-9">
+
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Simulation Dashboard (v1.0)</h1>
+
+        <!-- Control Buttons -->
+        <div class="row">
+            <div class="col-lg-12">
+                <button
+                        ng-if="!dc.testRunning" type="button" class="btn btn-success"
+                        ng-click="dc.start()">
+                    Start
+                </button>
+                <button
+                        ng-if="dc.testRunning" type="button" class="btn btn-danger"
+                        ng-click="dc.stop()">
+                    Stop
+                </button>
+                <div class="alert alert-success" role="alert" ng-if="dc.status">{{dc.status}}</div>
+                <div class="alert alert-warning" role="alert" ng-if="dc.error">{{dc.error}}</div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Parameters -->
+                <h3><span class="glyphicon glyphicon-align-left"></span> Parameters</h3>
+
+                <!--<div class="form-group">
+                    <label for="useDefaults">Use Defaults:</label>
+                    <input type="checkbox" id="useDefaults" ng-model="dc.useDefaults" ng-click="dc.toggleDefaults()">
+                </div>-->
+                <div class="form-group">
+                    <label for="enableLogging">Logging:</label>
+                    <input type="checkbox" id="enableLogging" ng-model="dc.enableLogging">
+                </div>
+                <div class="form-group">
+                    <label for="loadbalance">LoadBalance:</label>
+                    <input type="checkbox" id="loadbalance" ng-model="dc.loadbalance">
+                </div>
+                <div class="form-group">
+                    <label for="numDrivers">Number of Drivers:</label>
+                    <input type="number" class="form-control" id="numDrivers" ng-model="dc.numDrivers">
+                </div>
+                <div class="form-group">
+                    <label for="staticRecAddress">Static address of recommendation server (leave empty if load balancing is used)</label>
+                    <input type="text" class="form-control" id="staticRecAddress" ng-model="dc.staticRecAddress" >
+                </div>
+                <div class="form-group">
+                    <label for="precision">Client GeoHash Character Precision</label>
+                    <input type="number" class="form-control" id="precision" ng-model="dc.precision">
+                </div>
+                <div class="form-group">
+                    <label for="pollDelay">Delay poll requests to recommendation service (in seconds)</label>
+                    <input type="number" class="form-control" id="pollDelay" ng-model="dc.pollDelay">
+                </div>
+                <div class="form-group">
+                    <label for="maxPoll">Maximum of polls to recommendation service before timeout</label>
+                    <input type="number" class="form-control" id="maxPoll" ng-model="dc.maxPoll">
+                </div>
+                <div class="form-group">
+                    <label for="grpcTimeout">Seconds before GRPC requests timeout</label>
+                    <input type="number" class="form-control" id="grpcTimeout" ng-model="dc.grpcTimeout">
+                </div>
+                <div class="form-group">
+                    <label for="refreshConsul">Refresh Consul Service List (in seconds)</label>
+                    <input type="number" class="form-control" id="refreshConsul" ng-model="dc.refreshConsul">
+                </div>
+                <div class="form-group">
+                    <label for="maxRetries">Maximum retries of failed Consul requests</label>
+                    <input type="number" class="form-control" id="maxRetries" ng-model="dc.maxRetries">
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+    </div>
+</div>

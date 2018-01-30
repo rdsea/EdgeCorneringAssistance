@@ -1,0 +1,80 @@
+version: "3.3"
+
+networks:
+  swarmnet:
+      external:
+        name: swarmnet
+
+services:
+
+  apex-X:
+    deploy:
+          placement:
+              constraints: [node.hostname == det-X]
+    image: datatorrent/rts:latest
+    ports:
+      - "9091:9090"
+      - "50070:50070"
+      - "8088:8088"
+    stdin_open: true
+    tty: true
+    networks:
+        swarmnet:
+
+  rabbit-X:
+    deploy:
+          placement:
+              constraints: [node.hostname == det-X]
+    image: rabbitmq:3-management
+    networks:
+        swarmnet:
+
+  node-exporter-X:
+      deploy:
+            placement:
+                constraints: [node.hostname == det-X]
+      image: prom/node-exporter
+      networks:
+        swarmnet:
+
+  consul-client-X:
+      deploy:
+            placement:
+                constraints: [node.hostname == det-X]
+      image: "consul:latest"
+      networks:
+        swarmnet:
+      environment:
+        - CONSUL_BIND_INTERFACE=eth0
+        - CONSUL_CLIENT_INTERFACE=eth0
+        - CONSUL_LOCAL_CONFIG={
+                                "services":[
+                                  {
+                                    "id":"node-exporter-X",
+                                    "name":"node-exporter",
+                                    "tags":["detection"],
+                                    "address":"node-exporter-X",
+                                    "port":9100
+                                  },
+                                  {
+                                    "id":"det-X",
+                                    "name":"detection",
+                                    "address":"rabbit-X",
+                                    "port":50051
+                                  }
+                                ]}
+        # Consul Config:
+        #                 -ID:    unique ID of the service on this node
+        #                 -Name:  the name of the service (not unique)
+        #                 -Tags:  specifies service capabilities of this node (i.e. what types of requests can be handled). Example: "detection", "recommendation"
+      command:
+        - consul
+        - agent
+        - -node=consul-client-X # The name of this node in the cluster.
+        - -node-meta=lat:!LAT!
+        - -node-meta=lon:!LON!
+        - -data-dir=/consul/data # mounted volume
+        - -config-dir=/consul/config
+        - -join=consul-server
+        - -bind={{ GetInterfaceIP "eth0" }} # The address at which other Consul agents can find this agent
+

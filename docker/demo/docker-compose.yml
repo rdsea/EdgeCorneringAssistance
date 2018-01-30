@@ -1,0 +1,73 @@
+version: "3.3"
+
+volumes:
+  db-data:
+  redis-data:
+  mongo-data:
+
+networks:
+  rec-internal:
+  sim-internal:
+  demonet:
+      external:
+        name: demonet
+
+services:
+
+  # central database to persist and read detected curves
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      demonet:
+    volumes:
+      - db-data:/db-data
+
+  # detection-service
+  apex:
+    image: datatorrent/rts:latest
+    ports:
+      - "9091:9090"
+      - "50070:50070"
+      - "8088:8088"
+    stdin_open: true
+    tty: true
+    networks:
+        demonet:
+
+  rabbit:
+    image: rabbitmq:3-management
+    networks:
+        demonet:
+    ports:
+      - "15672:15672"
+
+  # recommendation-service
+  grpc-server:
+    image: rec-server:latest
+    networks:
+      rec-internal:
+      demonet:
+    ports:
+        - "50051:50051"
+    depends_on:
+        - "redis-1"
+        - "mongo-1"
+
+  redis-1:
+    image: redis
+    networks:
+        rec-internal:
+    volumes:
+        - redis-data:/redis-data
+
+  mongo-1:
+    image: mongo
+    networks:
+        rec-internal:
+    volumes:
+        - mongo-data:/mongo-data
+    ports:
+      - "27018:27017"
+

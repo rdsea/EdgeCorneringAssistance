@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+// specifies the package we want to use for our generated Java classes.
+option java_package = "com.k.matthias.corneringassistanceapplication.grpc";
+option java_outer_classname = "CommonProto";
+
+
+package common;
+
+
+message RequestDTO {
+    PointDTO location = 1;
+    string uid = 2;
+}
+
+message PointDTO {
+    double lat = 1;
+    double lon = 2;
+}
+
+message CurveDTO {
+    PointDTO start = 1;
+    double startBearing = 2;
+    PointDTO end = 3;
+    double endBearing = 4;
+    PointDTO center = 5;
+    double radius = 6;
+    double length = 7;
+    string turntype = 8;
+}
+
+message CurveListDTO {
+    repeated CurveDTO curves = 1;
+}
+
+message CurveRecommendationDTO {
+    CurveDTO curve = 1;
+    int32 recommendedSpeed = 2;
+}
+
+message CurveRecommendationListDTO {
+    repeated CurveRecommendationDTO curveRecommondations = 1;
+}
+
+message ResponseDTO {
+    int32 responseCode = 1; // 0: curves available, 1: detection in progress, 2: recommendation busy, 3: server error
+    CurveRecommendationListDTO curveList = 2;
+}
+
+message Empty {
+
+}

@@ -1,0 +1,34 @@
+version: "3.3"
+
+networks:
+  swarmnet:
+      external:
+        name: swarmnet
+
+services:
+
+  apex:
+    deploy:
+          placement:
+              constraints: [node.hostname == det]
+    image: datatorrent/rts:latest
+    ports:
+      - "9090:9090"
+      - "50070:50070"
+      - "8088:8088"
+    stdin_open: true
+    tty: true
+    networks:
+        swarmnet:
+
+  rabbit:
+    deploy:
+          placement:
+              constraints: [node.hostname == det]
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+        swarmnet:
+

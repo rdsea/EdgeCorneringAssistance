@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Cornering Assistance Application</string>
+    <string name="current_speed_label">Current Speed:</string>
+    <string name="current_speed_default">... km/h</string>
+    <string name="recommended_speed_default">... km/h</string>
+    <string name="recommended_speed_label">Safe Speed:</string>
+    <string name="upcoming_curve_label">Upcoming curve in:</string>
+    <string name="upcoming_curve_meters_default">... m</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_call_server">Call Server</string>
+    <string name="pref_description_call_server">If enabled a remote recommendation server is called.
+        Otherwise the detection only considers curves from the local cache.
+    </string>
+
+    <string name="pref_title_always_clear_cache">Always Clear Cache</string>
+    <string name="pref_description_always_clear_cache">Clears the cache as soon as new curves are
+        detected. If disabled curves stay in the cache.
+    </string>
+
+    <string name="pref_title_auto_move_map">Auto Move Map</string>
+    <string name="pref_description_auto_move_map">Automatically moves the map to the current location.
+    </string>
+
+    <string name="pref_title_hide_passed_curves">Hide Passed Curves</string>
+    <string name="pref_description_hide_passed_curves">Immediately hide curves that you passed already.
+        If disabled, curves are highlighted as long as another curve approaches.
+    </string>
+
+
+    <string name="pref_title_server_address">Server Address</string>
+    <string name="pref_default_server_address">104.155.88.1</string>
+    <string name="settings">Settings</string>
+</resources>

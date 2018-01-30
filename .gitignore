@@ -1,0 +1,15 @@
+*.DS_Store
+.idea/
+
+simulator/\.gradle/
+simulator/build/
+simulator/src/main/resources/static/bower_components/
+simulator/test-performance/src/main/resources/static/bower_components/
+simulator/test-performance/\.gradle/
+simulator/test-performance/build/
+simulator/test-data-quality/src/main/resources/static/bower_components/
+simulator/test-data-quality/\.gradle/
+simulator/test-data-quality/build/
+simulator/test-data-quality/data/
+simulator/test-performance/data/
+simulator/test-performance/monitor/data/

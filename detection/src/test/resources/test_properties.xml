@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<configuration>
+	<!-- App Configurations -->
+	<property>
+		<name>dt.application.CurveDetection.class</name>
+		<value>at.mkaran.thesis.Application</value>
+		<description>An alias for the application</description>
+	</property>
+
+	<property>
+		<name>dt.attr.DEBUG</name>
+		<value>true</value>
+	</property>
+
+	<!-- Operator Memory Allocation -->
+	<property>
+		<name>dt.application.CurveDetection.operator.*.attr.MEMORY_MB</name>
+		<value>512</value>
+	</property>
+	<!-- Buffer Memory Allocation -->
+	<property>
+		<name>dt.application.CurveDetection.operator.*.port.*.attr.BUFFER_MEMORY_MB</name>
+		<value>128</value>
+	</property>
+
+	<!-- Specify some general properties-->
+	<property>
+		<name>rabbitMQServerAddress</name>
+		<value>localhost</value>
+	</property>
+	<property>
+		<name>rabbitMQServerPort</name>
+		<value>5672</value>
+	</property>
+
+
+	<!-- Operator: RequestAggregator -->
+	<!-- The default Window Size is 500ms. To create aggregates, specify more windows -->
+	<property>
+		<name>dt.application.CurveDetection.operator.requestAggregator.attr.APPLICATION_WINDOW_COUNT</name>
+		<value>2</value>
+	</property>
+	<property>
+		<!-- The character precision of the GeoHashes (the larger the precision, the smaller the resulting bounding boxes -->
+		<name>dt.application.CurveDetection.operator.requestAggregator.prop.geoHashPrecision</name>
+		<value>6</value>
+	</property>
+
+	<!-- Operator: OSMQuery -->
+	<!-- Simulate queries to OSM -->
+	<property>
+		<name>dt.application.CurveDetection.operator.osmOperator.prop.simulateOSMQueries</name>
+		<value>false</value>
+	</property>
+	<!-- The server address of the OverpassAPI instance that shall be used -->
+	<property>
+		<name>dt.application.CurveDetection.operator.osmOperator.prop.overpassUrl</name>
+		<value>http://overpass-api.de</value>
+	</property>
+	<!-- Partitioning this  operator into 3 copies -->
+	<property>
+		<name>dt.application.CurveDetection.operator.osmOperator.attr.PARTITIONER</name>
+		<value>com.datatorrent.common.partitioner.StatelessPartitioner:2</value>
+	</property>
+
+	<!-- Specify the type of ways to consider for the curve detection -->
+	<property>
+		<name>dt.application.CurveDetection.operator.osmOperator.prop.overpassQueryWayFilter</name>
+		<value>way[~"highway"~"^primary$|^secondary$|^tertiary$|^motorway$|^unclassified$|^residential$"];</value>
+	</property>
+
+	<!-- Operator: CurveDetection -->
+	<!-- Replicate partitioning for this operator to the upstream operator -->
+	<property>
+		<name>dt.application.CurveDetection.operator.curvesOperator.inputport.input.attr.PARTITION_PARALLEL</name>
+		<value>true</value>
+	</property>
+	<property>
+		<name>dt.application.CurveDetection.operator.curvesOperator.prop.angleThreshold</name>
+		<value>2.0</value>
+	</property>
+	<property>
+		<name>dt.application.CurveDetection.operator.curvesOperator.prop.radiusThreshold</name>
+		<value>1000</value>
+	</property>
+	<property>
+		<name>dt.application.CurveDetection.operator.curvesOperator.prop.mergeThreshold</name>
+		<value>50</value>
+	</property>
+	<property>
+		<name>dt.application.CurveDetection.operator.curvesOperator.prop.gapThreshold</name>
+		<value>30</value>
+	</property>
+
+	<!-- Operator: MongoDBOutputOperator -->
+	<!-- The default Window Size is 500ms. To create aggregates, specify more windows -->
+	<property>
+		<name>dt.application.CurveDetection.operator.mongoOperator.attr.APPLICATION_WINDOW_COUNT</name>
+		<value>2</value>
+	</property>
+	<property>
+		<!-- Enable/Disable storing geohashes of fixed size to MongoDB -->
+		<name>dt.application.CurveDetection.operator.mongoOperator.prop.appendGeohashesToCurves</name>
+		<value>true</value>
+	</property>
+	<!-- Connection strings to distributed MongoDB Cluster -->
+	<property>
+		<name>dt.application.CurveDetection.operator.mongoOperator.prop.useAtlasDb</name>
+		<value>false</value>
+	</property>
+	<property>
+		<name>dt.application.CurveDetection.operator.mongoOperator.prop.mongoURI</name>
+		<value>localhost</value>
+	</property>
+	<property>
+		<name>dt.application.CurveDetection.operator.mongoOperator.prop.mongoUser</name>
+		<value>det</value>
+	</property>
+	<property>
+		<name>dt.application.CurveDetection.operator.mongoOperator.prop.mongoPW</name>
+		<value>somePW</value>
+	</property>
+	<property>
+		<name>dt.application.CurveDetection.operator.mongoOperator.prop.enableAuth</name>
+		<value>false</value>
+	</property>
+
+
+
+</configuration>

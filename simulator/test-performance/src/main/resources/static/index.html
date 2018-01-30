@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" ng-app="simulatorApp">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+
+    <!-- Dependencies -->
+    <link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.css"/>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+
+
+    <!-- Angular Files -->
+    <script src="app/mainController.js" type="text/javascript"></script>
+    <script src="app/dashboard.js" type="text/javascript"></script>
+
+</head>
+<body ng-controller='mainController'>
+
+<div class="col-md-9" ng-view></div>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<div class="col-md-9">
+
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Test Track Simulation</h1>
+
+        <!-- Control Buttons -->
+        <div class="row">
+            <div class="col-lg-12">
+                <button
+                        ng-if="!tc.testRunning" type="button" class="btn btn-success"
+                        ng-click="tc.startSimulation()">
+                    Start
+                </button>
+                <button
+                        ng-if="tc.testRunning" type="button" class="btn btn-danger"
+                        ng-click="tc.stopSimulation()">
+                    Stop
+                </button>
+                <div class="alert alert-success" role="alert" ng-if="tc.status">{{tc.status}}</div>
+                <div class="alert alert-warning" role="alert" ng-if="tc.error">{{tc.error}}</div>
+                <div> <p>Curve Count: {{tc.curveCount}}</p></div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-6">
+                <!-- Parameters -->
+                <h3><span class="glyphicon glyphicon-align-left"></span> Parameters</h3>
+                <div class="form-group">
+                    <label for="enableLogging">Logging:</label>
+                    <input type="checkbox" id="enableLogging" ng-model="tc.enableLogging">
+                </div>
+                <div class="form-group">
+                    <label for="callRecServer">Call Server:</label>
+                    <input type="checkbox" id="callRecServer" ng-model="tc.callRecServer">
+                </div>
+                <div class="form-group">
+                    <label for="gpsErrors">Add GPS Inaccuracies:</label>
+                    <input type="checkbox" id="gpsErrors" ng-model="tc.gpsErrors">
+                </div>
+                <div class="form-group">
+                    <label for="gpsOutages">Add GPS Outages:</label>
+                    <input type="checkbox" id="gpsOutages" ng-model="tc.gpsOutages">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="constantSpeed">Constant Speed (in km/h):</label>
+                    <input type="number" class="form-control" id="constantSpeed" ng-model="tc.constantSpeed">
+                </div>
+                <div class="form-group">
+                    <label for="precision">Client GeoHash Character Precision</label>
+                    <input type="number" class="form-control" id="precision" ng-model="tc.precision">
+                </div>
+                <div class="form-group">
+                    <label for="pollDelay">Delay poll requests to recommendation service (in seconds)</label>
+                    <input type="number" class="form-control" id="pollDelay" ng-model="tc.pollDelay">
+                </div>
+                <div class="form-group">
+                    <label for="maxPoll">Maximum of polls to recommendation service before timeout</label>
+                    <input type="number" class="form-control" id="maxPoll" ng-model="tc.maxPoll">
+                </div>
+                <div class="form-group">
+                    <label for="staticRecAddress">Static address of recommendation server (leave empty if load balancing is used)</label>
+                    <input type="text" class="form-control" id="staticRecAddress" ng-model="tc.staticRecAddress" >
+                </div>
+
+
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="autoMoveMap">Auto Move Map:</label>
+                    <input type="checkbox" id="autoMoveMap" ng-model="tc.autoMoveMap">
+                </div>
+                <leaflet
+                        controls="tc.controls"
+                        markers="tc.markers"
+                        paths="tc.paths"
+                        width="100%" height="480px" id="map" center="tc.center">
+                </leaflet>
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+</div>
