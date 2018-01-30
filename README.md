@@ -27,7 +27,7 @@ The software components of the thesis' prototype are split up into the following
 
 *simulator*: Java applications that simulate client/car functionalities.
 
-## Demo
+## Demo Videos
 
 The following videos demonstrate the prototype application:
 
