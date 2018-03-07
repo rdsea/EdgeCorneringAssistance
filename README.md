@@ -1,5 +1,8 @@
 # Cornering Assistance Application
 This project contains the source-code of the prototype that was implemented for the master's thesis "Using Mobile Edge Computing Technologies for Real-Time Cornering Assistance" at the TU Wien.
+If you use the source code, pls. make the following citations:
+* Hong-Linh Truong, Matthias Karan, "Analytics of Performance and Data Quality for Mobile Edge Cloud Applications", [Preprint PDF](https://www.researchgate.net/publication/323605132_Analytics_of_Performance_and_Data_Quality_for_Mobile_Edge_Cloud_Applications), Mar 2018.
+* Matthias Karan, "Using Mobile Edge Computing Technologies for Real-Time Cornering Assistance", Master Thesis, TU Wien, Feb 2018.
 
 ## Introduction
 To contribute to safer driving in any type of car, in the thesis "Using Mobile Edge Computing Technologies for Real-Time Cornering Assistance" we introduce a novel system that assists drivers in real-time while cornering. 
